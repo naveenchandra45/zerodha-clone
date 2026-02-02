@@ -2,7 +2,7 @@ function LogoutPage() {
   const handleRedirect = () => {
     // Vite requires 'import.meta.env' for frontend variables.
     // Variables must start with 'VITE_' to be accessible in the browser.
-    const authUrl = import.meta.env.VITE_AUTH_URL || "http://localhost:5173";
+    const authUrl = "https://zerodha-clone-plum.vercel.app";
     window.location.href = `${authUrl}/signup`;
   };
 

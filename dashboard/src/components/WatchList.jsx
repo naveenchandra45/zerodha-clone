@@ -15,7 +15,7 @@ const WatchList = () => {
   const [allWatchList, setAllWatchList] = useState([])
 
   useEffect (() => {
-    axios.get("http://localhost:8080/allwatchlist")
+    axios.get("https://zerodha-clone-ukx9.onrender.com/allwatchlist")
     .then((res) => {
       setAllWatchList(res.data);
     })

@@ -12,7 +12,7 @@ const BuyActionWindow = ({ uid }) => {
     async function fetchStockData() {
       try {
         const response = await axios.get(
-          `http://localhost:8080/allwatchlist/${uid}`,
+          `https://zerodha-clone-ukx9.onrender.com/${uid}`,
         );
         setStockPrice(response.data.price);
         setStockQuantity(response.data.quantity);
@@ -29,7 +29,7 @@ const BuyActionWindow = ({ uid }) => {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post("http://localhost:8080/newOrder", {
+      .post("https://zerodha-clone-ukx9.onrender.com/newOrder", {
         name: uid,
         qty: Number(stockQuantity),
         price: Number(stockPrice),

@@ -47,7 +47,7 @@ export default function UserMenu() {
   const handleLogout = () => {
     if (window.confirm("Are you sure to logout?")) {
       try {
-        axios.get("http://localhost:8080/logout");
+        axios.get("https://zerodha-clone-ukx9.onrender.com/logout");
 
         navigate("/logout");
         window.location.reload();
@@ -60,7 +60,7 @@ export default function UserMenu() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/fetchUser")
+      .get("https://zerodha-clone-ukx9.onrender.com/fetchUser")
       .then((res) => {
         setUserData(res.data);
       })

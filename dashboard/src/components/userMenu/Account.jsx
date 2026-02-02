@@ -30,7 +30,7 @@ function Accout({ setView, userData }) {
     if (window.confirm("Are you sure! you want to update")) {
       try {
         const data = await axios.put(
-          `http://localhost:8080/update/${userInfo.id}`,
+          `https://zerodha-clone-ukx9.onrender.com/update/${userInfo.id}`,
           userInfo,
         );
         alert("Account updated successful!");
@@ -46,7 +46,7 @@ function Accout({ setView, userData }) {
   const handleDelete = async () => {
     if (window.confirm("Are you sure? This cannot be undone.")) {
       try {
-        await axios.delete(`http://localhost:8080/delete/${userInfo.id}`);
+        await axios.delete(`https://zerodha-clone-ukx9.onrender.com/delete/${userInfo.id}`);
         alert("Account deleted successfully!");
         navigate("/logout");
         window.location.reload();
