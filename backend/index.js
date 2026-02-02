@@ -21,7 +21,7 @@ const url = process.env.MONGO_URL;
 
 app.use(
   cors({
-    origin: ["http://localhost:5173", "http://localhost:8000"],
+    origin: [FRONTEND_URL, DASHBOARD_URL],
     credentials: true,
   }),
 );
@@ -41,15 +41,23 @@ async function main() {
   await mongoose.connect(url);
 }
 
+//mongo session store
+const store = MongoStore.create({
+  mongoUrl: url,
+  crypto: {
+    secret: process.env.SESSION_SECRET,
+  },
+  touchAfter: 24 * 3600,
+});
+
 //express session
 const sessionOp = {
-  secret: process.env.SESSION_SECRET || "givemeapen",
+  store, //mongo session store
+  secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: false,
-  store: MongoStore.create({ mongoUrl: url, collectionName: "sessions" }),
+  saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: false,
     sameSite: "lax",
     maxAge: 7 * 24 * 60 * 60 * 1000, //one week
   },
