@@ -19,9 +19,12 @@ const app = express();
 const PORT = process.env.PORT || 8080;
 const url = process.env.MONGO_URL;
 
+// 1. Tell Express to trust Render's proxy (CRITICAL for sessions to work on Render)
+app.set("trust proxy", 1);
+
 app.use(
   cors({
-    origin: [FRONTEND_URL, DASHBOARD_URL],
+    origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
     credentials: true,
   }),
 );
@@ -55,10 +58,11 @@ const sessionOp = {
   store, //mongo session store
   secret: process.env.SESSION_SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    sameSite: "lax",
+    secure: true,   // MUST be true for Render's HTTPS
+    sameSite: "none", // MUST be "none" for cross-domain login
     maxAge: 7 * 24 * 60 * 60 * 1000, //one week
   },
 };
