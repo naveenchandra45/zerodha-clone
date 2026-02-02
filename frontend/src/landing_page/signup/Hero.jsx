@@ -51,7 +51,7 @@ function Hero() {
       } else {
         const { username, age, email, password } = signupUser;
         if (username && age && email && password) {
-          await axios.post("http://localhost:8080/signup", signupUser);
+          await axios.post("https://zerodha-clone-ukx9.onrender.com/signup", signupUser);
           alert("Signup successful! Please login.");
 
           setValidated(false);
@@ -92,7 +92,7 @@ function Hero() {
         event.stopPropagation();
         setValidated(true);
       } else {
-        const res = await axios.post("http://localhost:8080/login", loginUser);
+        const res = await axios.post("https://zerodha-clone-ukx9.onrender.com/login", loginUser);
         alert(res.data.message || "Logged in successfully!");
         setIsAuthenticated(true); //contains user data login as boolean
         setValidated(false);

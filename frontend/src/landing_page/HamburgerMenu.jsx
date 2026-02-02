@@ -22,9 +22,9 @@ export default function HamburgerMenu() {
     {
       name: "Trading Dashboard",
       logo: "media/logo/LogoKite.svg",
-      url: "http://localhost:8000/",
+      url: import.meta.env.VITE_DASHBOARD_URL,
       desc: "Trading platform",
-    },
+    },   
     {
       name: "Console",
       logo: "media/logo/LogoConsole.svg",
