@@ -24,7 +24,7 @@ app.set("trust proxy", 1);
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL, process.env.DASHBOARD_URL],
+    origin: ["https://zerodha-clone-plum.vercel.app", "https://zerodha-clone-ql66.vercel.app"],
     credentials: true,
   }),
 );
