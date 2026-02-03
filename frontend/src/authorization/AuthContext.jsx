@@ -9,9 +9,7 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const response = await axios.get("https://zerodha-clone-ukx9.onrender.com/fetchuser", {
-          withCredentials: true,
-        });
+        const response = await axios.get("https://zerodha-clone-ukx9.onrender.com/fetchuser");
 
         if (response.status === 200) {
           setIsAuthenticated(true);
