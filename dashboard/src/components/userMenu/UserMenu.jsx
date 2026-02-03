@@ -53,7 +53,7 @@ export default function UserMenu() {
         window.location.reload();
       } catch (err) {
         const msg = err.response?.data?.message;
-        alert(msg);
+        console.log(msg);
       }
     }
   };
