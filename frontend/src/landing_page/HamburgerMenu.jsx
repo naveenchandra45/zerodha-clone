@@ -22,7 +22,7 @@ export default function HamburgerMenu() {
     {
       name: "Trading Dashboard",
       logo: "media/logo/LogoKite.svg",
-      url: import.meta.env.VITE_DASHBOARD_URL,
+      url: "https://zerodha-clone-ql66.vercel.app",
       desc: "Trading platform",
     },   
     {
