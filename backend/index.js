@@ -165,8 +165,6 @@ app.delete(
       res.clearCookie("connect.sid");
       return res.status(200).json({ message: "Account deleted successfully" });
     });
-
-    res.status(200).json({ message: "Account deleted successfully" });
   }),
 );
 
@@ -265,9 +263,18 @@ app.get("/allwatchlist/:id", async (req, res) => {
   res.send(data);
 });
 
+
+
+//Error Handling Middleware
 app.use((err, req, res, next) => {
+
+  if (res.headersSent) {
+    return next(err); // If yes, let Express default handler handle it (prevents crash)
+  }
+
   let { statusCode = 500, message = "Something went wrong!" } = err;
 
+  //Validate statusCode is a number
   if (isNaN(Number(statusCode))) {
     statusCode = 500;
   }
