@@ -10,7 +10,7 @@ export function AuthProvider({ children }) {
     const checkAuth = async () => {
       try {
         const response = await axios.get("https://zerodha-clone-ukx9.onrender.com/fetchuser");
-
+        
         if (response.status === 200) {
           setIsAuthenticated(true);
         }

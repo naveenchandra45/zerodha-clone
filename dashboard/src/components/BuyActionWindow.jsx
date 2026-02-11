@@ -3,16 +3,18 @@ import axios from "axios";
 import GeneralContext from "./GeneralContext";
 import "./BuyActionWindow.css";
 
-const BuyActionWindow = ({ uid }) => {
-  const [stockQuantity, setStockQuantity] = useState();
-  const [stockPrice, setStockPrice] = useState();
-  const { closeBuyWindow } = useContext(GeneralContext);
+const BuyActionWindow = ({ uid, mode }) => {
+  const [stockQuantity, setStockQuantity] = useState(1);
+  const [stockPrice, setStockPrice] = useState(0.0);
+  const { closeBuyWindow, closeSellWindow } = useContext(GeneralContext);
+
+  const closeWindow = mode === "BUY" ? closeBuyWindow : closeSellWindow;
 
   useEffect(() => {
     async function fetchStockData() {
       try {
         const response = await axios.get(
-          `https://zerodha-clone-ukx9.onrender.com/${uid}`,
+          `https://zerodha-clone-ukx9.onrender.com/allwatchlist/${uid}`,
         );
         setStockPrice(response.data.price);
         setStockQuantity(response.data.quantity);
@@ -24,6 +26,7 @@ const BuyActionWindow = ({ uid }) => {
     if (uid) {
       fetchStockData();
     }
+
   }, [uid]);
 
   const handleSubmit = (event) => {
@@ -33,9 +36,9 @@ const BuyActionWindow = ({ uid }) => {
         name: uid,
         qty: Number(stockQuantity),
         price: Number(stockPrice),
-        mode: "BUY",
+        mode: mode,
       })
-      .then(() => closeBuyWindow());
+      .then(() => closeWindow());
   };
 
   return (
@@ -46,6 +49,7 @@ const BuyActionWindow = ({ uid }) => {
             <legend>Qty.</legend>
             <input
               type="number"
+              min={1}
               onChange={(e) => setStockQuantity(e.target.value)}
               value={stockQuantity}
               style={{ backgroundColor: "transparent" }}
@@ -62,13 +66,13 @@ const BuyActionWindow = ({ uid }) => {
           </fieldset>
         </div>
         <div className="buttons">
-          <button type="submit" className="btn btn-blue">
-            Buy
+          <button type="submit" className={`btn ${mode === "BUY" ? "btn-blue" : "btn-red"}`}>
+            {mode === "BUY" ? "Buy" : "Sell"}
           </button>
           <button
             type="button"
             className="btn btn-grey"
-            onClick={closeBuyWindow}
+            onClick={closeWindow}
           >
             Cancel
           </button>

@@ -12,6 +12,7 @@ const HoldingsModel = require("./models/HoldingsModel");
 const PositionsModel = require("./models/PositionsModel");
 const OrdersModel = require("./models/OrdersModel");
 const WatchlistModel = require("./models/WatchlistModel");
+const AnalyticsModel = require("./models/AnalyticsModel.js")
 const wrapAsync = require("./utils/wrapAsync.js");
 
 const app = express();
@@ -61,8 +62,8 @@ const sessionOp = {
   saveUninitialized: false,
   cookie: {
     httpOnly: true,
-    secure: true,   // MUST be true for Render's HTTPS
-    sameSite: "none", // MUST be "none" for cross-domain login
+    secure: true,
+    sameSite: "none", 
     maxAge: 7 * 24 * 60 * 60 * 1000, //one week
   },
 };
@@ -236,6 +237,13 @@ app.get("/allPositions", async (req, res) => {
   res.json(allPositions);
 });
 
+
+//Analytics API
+app.get("/allAnalytic", async (req, res) => {  
+  const allAnalytics = await AnalyticsModel.find({});
+  res.json(allAnalytics);
+})
+
 //to save data into order
 app.post("/newOrder", async (req, res) => {
   let newOrder = new OrdersModel({
@@ -248,6 +256,12 @@ app.post("/newOrder", async (req, res) => {
 
   res.send("Order saved!");
 });
+
+//order API
+app.get("/order", async(req, res) => {
+  let allOrders = await OrdersModel.find({});
+  res.json(allOrders);
+})
 
 //watchlist API
 app.get("/allwatchlist", async (req, res) => {

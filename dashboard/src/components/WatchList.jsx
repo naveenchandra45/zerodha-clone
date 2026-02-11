@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import axios from "axios"
+import axios from "axios";
 import Tooltip from "@mui/material/Tooltip";
 import Grow from "@mui/material/Grow";
 
@@ -12,17 +12,17 @@ import GeneralContext from "./GeneralContext";
 import { DoughnutChart } from "../chart/DoughnutChart";
 
 const WatchList = () => {
-  const [allWatchList, setAllWatchList] = useState([])
+  const [allWatchList, setAllWatchList] = useState([]);
 
-  useEffect (() => {
+  useEffect(() => {
     axios.get("https://zerodha-clone-ukx9.onrender.com/allwatchlist")
-    .then((res) => {
-      setAllWatchList(res.data);
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }, [])
+      .then((res) => {
+        setAllWatchList(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   const labels = allWatchList.map((watchlistName) => watchlistName.name);
 
@@ -115,6 +115,14 @@ function WatchListAction({ uid }) {
     generalContext.openBuyWindow(uid);
   };
 
+  const handleSellClick = () => {
+    generalContext.openSellWindow(uid);
+  };
+
+  const handleAnalyticsClick = () => {
+    generalContext.openAnalyticsWindow(uid);
+  };
+
   return (
     <div className="actions">
       <span>
@@ -140,7 +148,9 @@ function WatchListAction({ uid }) {
             transition: Grow,
           }}
         >
-          <button className="sell">sell</button>
+          <button className="sell" onClick={handleSellClick}>
+            sell
+          </button>
         </Tooltip>
       </span>
       <span>
@@ -152,7 +162,7 @@ function WatchListAction({ uid }) {
             transition: Grow,
           }}
         >
-          <button>
+          <button onClick={handleAnalyticsClick}>
             <BarChartIcon className="icon"></BarChartIcon>
           </button>
         </Tooltip>
